@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel = "stylesheet" href = "../static/style.css">
+        <title>Posted Messages</title>
+    </head>
+    <body>
+        <p>Messages posted by {{ entityUsername }}</p>
+        {% for result in results %}
+        ---
+        <form action = "/editmessage/{{ entityUsername }}" method = "post">
+            <p>
+                <label for = "subject">Subject</label>
+                <input type = "text" name = "subject" value = "{{ result['subject'] }}" readonly = "readonly" />
+
+                <br>
+                <br>
+
+                <label for = "messagetext">Message</label>
+                <div class = "show-white-space"><textarea name = "messagetext" rows = "3" cols = "50" readonly = "readonly">{{ result['messagetext'] }}</textarea></div>
+
+                <br>
+                <br>
+
+                <label for = "image">Image</label>
+                <img src = "https://storage.googleapis.com/{{ bucket }}/{{ result['imagename'] }}" width = "120", height = "120"/>
+            </p>
+                <label for = "date">Date</label>
+                <input type = "text" name = "datetime" value = "{{ result['datetime'] }}" readonly = "readonly" />
+            <p>
+                <button name = "editmessage_button" type = "submit"> Edit message</button>
+            </p>
+        </form>
+        ---
+        <br>
+        {% endfor %}
+        <p>
+            <a href = "{{ url_for('viewUserPage', entityUsername = entityUsername) }}">
+                <button name = "viewUserPage_button" type = "submit"> Return to User Page</button>
+            </a>
+        </p>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Forum Page</title>
+    </head>
+
+    <body>
+        <h3>Greetings</h3>
+        <img src = "https://storage.googleapis.com/{{ bucket }}/{{ imagename }}" width = "120", height = "120"/>
+        <p>
+            <a href = "{{ url_for('viewUserPage', entityUsername = entityUsername) }}">{{ entityUsername }}</a>
+        </p>
+        <p>
+            <a href = "{{ url_for('messagepage', entityUsername = entityUsername) }}">
+                <button name = "messagepage_button" type = "submit"> Enter Messaging Page</button>
+            </a>
+        </p>
+        <p>
+            <form action = "/loginpage">
+                <button name = "login_page_button" type = "submit">Log out</button>
+            </form>       
+        </p>
+    </body>
+</html>

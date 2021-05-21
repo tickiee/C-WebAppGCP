@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>User Page</title>
+    </head>
+    
+    <body>
+        <h1>User Page</h1>
+        <h2>{{ entityUsername }}</h2>
+        
+        <br>
+
+        <form action = "/changepassword" method = "post">
+            <h3>Change Password</h3>
+
+            <div>
+                <label for = "username">Username</label>
+                <input type = "text" name = "username" value = "{{ entityUsername }}" readonly = "readonly" />
+            </div>
+
+            <br>
+
+            <div>
+                <label for = "current_password">Current Password</label>
+                <input type = "password" placeholder = "Enter Current Password" name = "current_password" size = "25" required>
+            </div>
+    
+            <br>
+    
+            <div>
+                <label for = "new_password">New Password</label>
+                <input type = "password" placeholder = "Enter New Password" name = "new_password" size = "25" required>
+            </div>
+    
+            <br>
+
+            <button name = "changePassword_button" type = "submit">Change Password</button>
+
+            <br>
+            
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div>
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+            {% endwith %}
+        </form>
+
+        <br>
+
+        <p>
+            <a href = "{{ url_for('userpostedmessages', entityUsername = entityUsername) }}">
+                <button name = "userpostedmessages_button" type = "submit"> View posted messages</button>
+            </a>
+        </p>
+        
+
+        <p>
+            <a href = "{{ url_for('forumpage', entityUsername = entityUsername) }}">
+                <button name = "forumpage_button" type = "submit"> Return to Forum Page</button>
+            </a>
+        </p>
+
+        <br>
+    </body>    
+</html>

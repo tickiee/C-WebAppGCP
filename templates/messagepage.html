@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel = "stylesheet" href = "../static/style.css">
+        <title>Message Page</title>
+    </head>
+    <body>
+        <form action = "/postmessage" method = "post" enctype = "multipart/form-data">
+            <p>
+                <label for = "username">Username</label>
+                <input type = "text" name = "username" value = "{{ entityUsername }}" readonly = "readonly" />
+            </p>
+            Subject
+            <p>
+                <textarea name = "subject" id = "subject" rows = "1" cols = "20" required></textarea>
+            </p>
+
+            Post message here
+            <p>
+                <div>
+                    <textarea name = "message" id = "usermessage" rows = "3" cols = "50" required></textarea>
+                </div>
+            </p>
+            <p>
+                <div>
+                    <label for = "image">Add image</label>
+                    <input type = "file" name = "file" accept = "image/*" required>
+                </div>
+            </p>
+            <p>
+                <div>
+                    <button name = "submitmessage_button" type = "submit">Submit Message</button>
+                </div>
+            </p>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class = "box">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+            {% endwith %}
+        </form>
+
+        <p>
+            <a href = "{{ url_for('forumpage', entityUsername = entityUsername) }}">
+                <button name = "forumpage_button" type = "submit">Return to Forum Page</button>
+            </a>
+        </p>
+
+        <p>Latest Messages</p>
+        {% for result in results %}
+        -------------------------
+        <p>
+            <p>
+                <img src = "https://storage.googleapis.com/{{ userbucket }}/{{ result['user_image'] }}" width = "120", height = "120"/>
+                
+                <br>
+
+                Username {{ result["user_name"] }}
+            </p>
+            <p>
+                Subject
+                <br>
+                <p>
+                    {{ result["subject"] }}
+                </p>
+                Message
+                <div class = "show-white-space">{{ result["messagetext"] }}</div>
+                Image
+                <br>
+                <img src = "https://storage.googleapis.com/{{ messagebucket }}/{{ result['imagename'] }}" width = "120", height = "120"/>
+            </p>
+            Date: {{ result["datetime"] }}         
+        </p>
+        -------------------------
+        {% endfor %}        
+    </body>
+</html>
